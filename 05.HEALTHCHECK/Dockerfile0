@@ -1,0 +1,15 @@
+# ベースイメージの設定
+FROM ubuntu
+
+# Nginx Install
+RUN apt-get -y update && apt-get -y upgrade
+RUN apt-get -y install nginx
+
+# ポート指定
+EXPOSE 80
+
+# HEALTHCHECK
+HEALTHCHECK --interval=5m --timeout=3s CMD curl -f http://localhost/ || exit 1
+
+# Nginx 実行
+CMD ["nginx", "-g", "daemon off;"]
